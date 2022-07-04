@@ -6,6 +6,7 @@ provider:
   name: aws
   runtime: nodejs12.x
   profile: node-aws-course
+  region: eu-west-3
 
 plugins:
   - serverless-finch
