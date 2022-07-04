@@ -5,8 +5,7 @@ frameworkVersion: '2'
 provider:
   name: aws
   runtime: nodejs12.x
-  # setup profile for AWS CLI.
-  # profile: node-aws
+  profile: node-aws-course
 
 plugins:
   - serverless-finch
@@ -17,7 +16,7 @@ plugins:
 
 custom:
   client:
-    bucketName: node-in-aws-web-bucket
+    bucketName: my-aws-course-app
     distributionFolder: build
   s3BucketName: ${self:custom.client.bucketName}
 
