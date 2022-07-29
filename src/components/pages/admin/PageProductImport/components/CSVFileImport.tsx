@@ -21,7 +21,8 @@ export default function CSVFileImport({url, title}: CSVFileImportProps) {
   const onFileChange = (e: any) => {
     console.log(e);
     let files = e.target.files || e.dataTransfer.files
-    if (!files.length) return
+    if (!files.length) return;
+    if (files.item(0).type !== 'text/csv') return;
     setFile(files.item(0));
   };
 
