@@ -24,13 +24,11 @@ export default function ProductsTable() {
     })()
   }, []);
 
-  const onDelete = (id: string) => {
-    axios.delete(`${API_PATHS.bff}/product/${id}`)
-      .then(() => {
-        axios.get(`${API_PATHS.bff}/product`)
-          .then(res => setProducts(res.data));
-        }
-      );
+  const onDelete = async (id: string) => {
+    await axios.delete(`${API_PATHS.product}/products/${id}`)
+    const response = await axios.get(`${API_PATHS.bff}/products`)
+    const data = get(response, 'data.products', []);
+    setProducts(data)
   };
 
 
