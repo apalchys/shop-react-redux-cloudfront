@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import get from "lodash/get";
 import {Link} from "react-router-dom";
 import API_PATHS from "constants/apiPaths";
 import Table from '@material-ui/core/Table';
@@ -16,8 +17,11 @@ export default function ProductsTable() {
   const [products, setProducts] = useState<any>([]);
 
   useEffect(() => {
-    axios.get(`${API_PATHS.bff}/product`)
-      .then(res => setProducts(res.data));
+    (async function getProductsList() {
+      const response = await axios.get(`${API_PATHS.bff}/products`)
+      const data = get(response, 'data.products', []);
+      setProducts(data)
+    })()
   }, []);
 
   const onDelete = (id: string) => {

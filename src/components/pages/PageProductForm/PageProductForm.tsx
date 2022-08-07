@@ -106,23 +106,28 @@ export default function PageProductForm() {
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const onSubmit = (values: FormikValues) => {
+  const onSubmit = async (values: FormikValues) => {
     const formattedValues = ProductSchema.cast(values);
     const productToSave = id ? {...ProductSchema.cast(formattedValues), id} : formattedValues;
-    axios.put(`${API_PATHS.bff}/product`, productToSave)
-      .then(() => history.push('/admin/products'));
+    if(id) {
+      await axios.put(`${API_PATHS.bff}/products`, productToSave)
+    } else {
+      await axios.post(`${API_PATHS.bff}/products`, productToSave)
+    }
+    history.push('/admin/products')
   };
 
   useEffect(() => {
-    if (!id) {
-      setIsLoading(false);
-      return;
-    }
-    axios.get(`${API_PATHS.bff}/product/${id}`)
-      .then(res => {
-        setProduct(res.data);
+    (async function getProduct() {
+      if (!id) {
         setIsLoading(false);
-      });
+        return;
+      }
+
+      const response = await axios.get(`${API_PATHS.bff}/products/${id}`)
+      setProduct(response.data);
+      setIsLoading(false);
+    })()
   }, [id])
 
   if (isLoading) return <p>loading...</p>;
