@@ -22,7 +22,10 @@ export default function CSVFileImport({url, title}: CSVFileImportProps) {
     console.log(e);
     let files = e.target.files || e.dataTransfer.files
     if (!files.length) return;
-    if (files.item(0).type !== 'text/csv') return;
+    if (files.item(0).type !== 'text/csv') {
+        setFile('');
+        return;
+    }
     setFile(files.item(0));
   };
 
