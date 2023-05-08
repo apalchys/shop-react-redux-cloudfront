@@ -1,5 +1,5 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
@@ -25,14 +25,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PaperLayout:React.FC = ({children}) =>  {
+const PaperLayout: React.FC = ({ children }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.layout}>
-      <Paper className={classes.paper}>
-        {children}
-      </Paper>
+      <Paper className={classes.paper}>{children}</Paper>
     </div>
   );
 };

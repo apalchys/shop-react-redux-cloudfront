@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import get from "lodash/get";
-import {Link} from "react-router-dom";
-import API_PATHS from "constants/apiPaths";
+import get from 'lodash/get';
+import { Link } from 'react-router-dom';
+import API_PATHS from 'constants/apiPaths';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,27 +10,26 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Button from "@material-ui/core/Button";
-import {formatAsPrice} from "utils/utils";
+import Button from '@material-ui/core/Button';
+import { formatAsPrice } from 'utils/utils';
 
 export default function ProductsTable() {
   const [products, setProducts] = useState<any>([]);
 
   useEffect(() => {
     (async function getProductsList() {
-      const response = await axios.get(`${API_PATHS.bff}/products`)
+      const response = await axios.get(`${API_PATHS.bff}/products`);
       const data = get(response, 'data.products', []);
-      setProducts(data)
-    })()
+      setProducts(data);
+    })();
   }, []);
 
   const onDelete = async (id: string) => {
-    await axios.delete(`${API_PATHS.product}/products/${id}`)
-    const response = await axios.get(`${API_PATHS.bff}/products`)
+    await axios.delete(`${API_PATHS.product}/products/${id}`);
+    const response = await axios.get(`${API_PATHS.bff}/products`);
     const data = get(response, 'data.products', []);
-    setProducts(data)
+    setProducts(data);
   };
-
 
   return (
     <TableContainer component={Paper}>
